@@ -191,6 +191,22 @@ body {
     transform: none;
 }
 
+.btn-secondary {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* Progress Section */
 .progress-container {
     margin-bottom: 30px;
@@ -501,6 +517,14 @@ body {
     color: #2c3e50;
     margin-bottom: 20px;
     font-size: 1.5rem;
+}
+
+/* Export Section */
+.export-section {
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #e1e8ed;
 }
 
 .recommendations-container {

@@ -101,8 +101,28 @@ const additionalTranslations = {
         scanFailed: "Skandering het misluk. Probeer asseblief weer.",
         scanTimeout: "Skandering timeout",
         failedToGetResults: "Kon nie skanderingresultate kry nie",
+        pdfExportSuccess: "PDF verslag suksesvol uitgevoer",
+        pdfExportFailed: "Kon nie PDF verslag genereer nie",
         selectLanguage: "Kies Taal",
-        language: "Taal"
+        language: "Taal",
+        
+        // PDF Export
+        exportPdfReport: "Eksporteer PDF Verslag",
+        pdfTitle: "Sekuriteits Assessering Verslag",
+        pdfGeneratedOn: "Gegenereer op",
+        pdfTargetUrl: "Teiken URL",
+        pdfTargetType: "Teiken Tipe",
+        pdfScanDepth: "Skandering Diepte",
+        pdfOverallScore: "Algehele Sekuriteits Telling",
+        pdfScanTime: "Skandering Duur",
+        pdfVulnerabilitiesFound: "Kwesbaarhede Gevind",
+        pdfVulnerabilityDetails: "Kwesbaarheid Besonderhede",
+        pdfRecommendations: "Aanbevelings",
+        pdfSecurityScoreboard: "Sekuriteits Tellingbord",
+        pdfBreachDifficulty: "Oortreding Moeilikheid",
+        pdfTimeToBreach: "Tyd tot Oortreding",
+        pdfCriticalVulns: "Kritieke Kwesbaarhede",
+        pdfReportFooter: "Hierdie verslag is gegenereer deur die Sekuriteits Assessering Instrument. Slegs vir gemagtigde toetsing."
     },
     
     nso: {
@@ -204,8 +224,28 @@ const additionalTranslations = {
         scanFailed: "Tekolo e hlilekile. Re kgopela o leke gape.",
         scanTimeout: "Nako ya tekolo e fedile",
         failedToGetResults: "Go hlilekile go hwetša dipošo tša tekolo",
+        pdfExportSuccess: "Pego ya PDF e tšweletšwe ka katlego",
+        pdfExportFailed: "Go hlilekile go dira pego ya PDF",
         selectLanguage: "Kgetha Polelo",
-        language: "Polelo"
+        language: "Polelo",
+        
+        // PDF Export
+        exportPdfReport: "Tšwelela Pego ya PDF",
+        pdfTitle: "Pego ya Tekolo ya Tšhireletšo",
+        pdfGeneratedOn: "E dirilwe ka",
+        pdfTargetUrl: "URL ya Sehlakahlaka",
+        pdfTargetType: "Mohuta wa Sehlakahlaka",
+        pdfScanDepth: "Bogolo bja Tekolo",
+        pdfOverallScore: "Dintlha tša Tšhireletšo ka Botlalo",
+        pdfScanTime: "Nako ya Tekolo",
+        pdfVulnerabilitiesFound: "Mathata a Hweditšwego",
+        pdfVulnerabilityDetails: "Dintlha tša Mathata a Tšhireletšo",
+        pdfRecommendations: "Dikgothaletšo",
+        pdfSecurityScoreboard: "Boto ya Dintlha tša Tšhireletšo",
+        pdfBreachDifficulty: "Bothata bja Go Tsenya",
+        pdfTimeToBreach: "Nako ya Go Tsenya",
+        pdfCriticalVulns: "Mathata a Bohlokwa a Tšhireletšo",
+        pdfReportFooter: "Pego ye e dirilwe ke Security Assessment Tool. Bakeng sa tekolo ye e dumelwago feela."
     }
 };
 

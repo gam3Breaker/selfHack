@@ -16,6 +16,10 @@ class SecurityAssessmentTool {
         // Language selector event listener
         const languageSelect = document.getElementById('languageSelect');
         languageSelect.addEventListener('change', (e) => this.changeLanguage(e.target.value));
+        
+        // PDF export button event listener
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        exportPdfBtn.addEventListener('click', () => this.exportPdfReport());
     }
 
     initializeLanguageSupport() {
@@ -538,6 +542,9 @@ class SecurityAssessmentTool {
         
         // Display scoreboard
         this.displayScoreboard();
+        
+        // Show PDF export button
+        document.getElementById('exportPdfBtn').style.display = 'inline-flex';
     }
 
     displayOverallScore() {
@@ -797,6 +804,331 @@ class SecurityAssessmentTool {
                 }
             }, 300);
         }, 5000);
+    }
+
+    exportPdfReport() {
+        try {
+            // Get current translations
+            let langTranslations = translations[this.currentLanguage];
+            
+            if (!langTranslations && additionalTranslations && additionalTranslations[this.currentLanguage]) {
+                langTranslations = additionalTranslations[this.currentLanguage];
+            }
+            
+            if (!langTranslations && completeTranslations && completeTranslations[this.currentLanguage]) {
+                langTranslations = completeTranslations[this.currentLanguage];
+            }
+            
+            if (!langTranslations) {
+                langTranslations = translations['en'];
+            }
+
+            // Create new PDF document
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set up fonts and colors
+            const primaryColor = [102, 126, 234]; // #667eea
+            const secondaryColor = [44, 62, 80]; // #2c3e50
+            const successColor = [40, 167, 69]; // #28a745
+            const warningColor = [255, 193, 7]; // #ffc107
+            const dangerColor = [220, 53, 69]; // #dc3545
+            
+            let yPosition = 20;
+            const pageWidth = doc.internal.pageSize.width;
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
+            
+            // Helper function to add text with word wrapping
+            const addText = (text, x, y, options = {}) => {
+                const {
+                    fontSize = 12,
+                    color = secondaryColor,
+                    fontStyle = 'normal',
+                    maxWidth = contentWidth
+                } = options;
+                
+                doc.setFontSize(fontSize);
+                doc.setTextColor(...color);
+                doc.setFont('helvetica', fontStyle);
+                
+                const lines = doc.splitTextToSize(text, maxWidth);
+                doc.text(lines, x, y);
+                return y + (lines.length * fontSize * 0.4) + 5;
+            };
+            
+            // Helper function to add a line
+            const addLine = (y) => {
+                doc.setDrawColor(200, 200, 200);
+                doc.line(margin, y, pageWidth - margin, y);
+                return y + 10;
+            };
+            
+            // Title
+            yPosition = addText(langTranslations.pdfTitle || 'Security Assessment Report', margin, yPosition, {
+                fontSize: 20,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            
+            yPosition += 5;
+            
+            // Generation date
+            const currentDate = new Date().toLocaleDateString();
+            yPosition = addText(`${langTranslations.pdfGeneratedOn || 'Generated on'}: ${currentDate}`, margin, yPosition, {
+                fontSize: 10,
+                color: [100, 100, 100]
+            });
+            
+            yPosition = addLine(yPosition);
+            
+            // Target Information
+            yPosition = addText(langTranslations.pdfTargetUrl || 'Target URL', margin, yPosition, {
+                fontSize: 14,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            yPosition = addText(this.scanResults.target_url, margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor
+            });
+            
+            yPosition = addText(langTranslations.pdfTargetType || 'Target Type', margin, yPosition, {
+                fontSize: 14,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            yPosition = addText(this.scanResults.target_type, margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor
+            });
+            
+            yPosition = addText(langTranslations.pdfScanDepth || 'Scan Depth', margin, yPosition, {
+                fontSize: 14,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            yPosition = addText(this.scanResults.scan_depth, margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor
+            });
+            
+            yPosition = addLine(yPosition);
+            
+            // Overall Score
+            yPosition = addText(langTranslations.pdfOverallScore || 'Overall Security Score', margin, yPosition, {
+                fontSize: 16,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            
+            const score = this.scanResults.overall_score;
+            let scoreColor = successColor;
+            let scoreText = langTranslations.excellent || 'Excellent';
+            
+            if (score < 40) {
+                scoreColor = dangerColor;
+                scoreText = langTranslations.poor || 'Poor';
+            } else if (score < 60) {
+                scoreColor = warningColor;
+                scoreText = langTranslations.fair || 'Fair';
+            } else if (score < 80) {
+                scoreColor = [255, 140, 0]; // Orange
+                scoreText = langTranslations.good || 'Good';
+            }
+            
+            yPosition = addText(`${score}/100 - ${scoreText}`, margin, yPosition, {
+                fontSize: 14,
+                color: scoreColor,
+                fontStyle: 'bold'
+            });
+            
+            yPosition = addLine(yPosition);
+            
+            // Scan Statistics
+            yPosition = addText(langTranslations.pdfScanTime || 'Scan Duration', margin, yPosition, {
+                fontSize: 14,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            yPosition = addText(`${Math.round(this.scanResults.scan_time)} seconds`, margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor
+            });
+            
+            yPosition = addText(langTranslations.pdfVulnerabilitiesFound || 'Vulnerabilities Found', margin, yPosition, {
+                fontSize: 14,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            yPosition = addText(`${this.scanResults.vulnerabilities.length} vulnerabilities detected`, margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor
+            });
+            
+            yPosition = addLine(yPosition);
+            
+            // Vulnerabilities Section
+            if (this.scanResults.vulnerabilities.length > 0) {
+                yPosition = addText(langTranslations.pdfVulnerabilityDetails || 'Vulnerability Details', margin, yPosition, {
+                    fontSize: 16,
+                    color: primaryColor,
+                    fontStyle: 'bold'
+                });
+                
+                this.scanResults.vulnerabilities.forEach((vuln, index) => {
+                    // Check if we need a new page
+                    if (yPosition > 250) {
+                        doc.addPage();
+                        yPosition = 20;
+                    }
+                    
+                    yPosition = addText(`${index + 1}. ${vuln.name}`, margin, yPosition, {
+                        fontSize: 12,
+                        color: secondaryColor,
+                        fontStyle: 'bold'
+                    });
+                    
+                    // Severity color
+                    let severityColor = successColor;
+                    if (vuln.severity === 'critical') severityColor = dangerColor;
+                    else if (vuln.severity === 'high') severityColor = warningColor;
+                    else if (vuln.severity === 'medium') severityColor = [255, 140, 0];
+                    
+                    yPosition = addText(`${langTranslations[vuln.severity] || vuln.severity} ${langTranslations.priority || 'priority'}`, margin, yPosition, {
+                        fontSize: 10,
+                        color: severityColor,
+                        fontStyle: 'bold'
+                    });
+                    
+                    yPosition = addText(vuln.description, margin, yPosition, {
+                        fontSize: 10,
+                        color: secondaryColor
+                    });
+                    
+                    yPosition = addText(`${langTranslations.impact || 'Impact'}: ${vuln.impact}`, margin, yPosition, {
+                        fontSize: 10,
+                        color: [100, 100, 100],
+                        fontStyle: 'italic'
+                    });
+                    
+                    yPosition += 10;
+                });
+                
+                yPosition = addLine(yPosition);
+            }
+            
+            // Recommendations Section
+            if (this.scanResults.recommendations.length > 0) {
+                yPosition = addText(langTranslations.pdfRecommendations || 'Recommendations', margin, yPosition, {
+                    fontSize: 16,
+                    color: primaryColor,
+                    fontStyle: 'bold'
+                });
+                
+                this.scanResults.recommendations.forEach((rec, index) => {
+                    // Check if we need a new page
+                    if (yPosition > 250) {
+                        doc.addPage();
+                        yPosition = 20;
+                    }
+                    
+                    yPosition = addText(`${index + 1}. ${rec.title}`, margin, yPosition, {
+                        fontSize: 12,
+                        color: secondaryColor,
+                        fontStyle: 'bold'
+                    });
+                    
+                    yPosition = addText(rec.description, margin, yPosition, {
+                        fontSize: 10,
+                        color: secondaryColor
+                    });
+                    
+                    yPosition = addText(`${langTranslations[rec.priority] || rec.priority} ${langTranslations.priority || 'priority'}`, margin, yPosition, {
+                        fontSize: 10,
+                        color: primaryColor,
+                        fontStyle: 'italic'
+                    });
+                    
+                    yPosition += 10;
+                });
+                
+                yPosition = addLine(yPosition);
+            }
+            
+            // Security Scoreboard
+            yPosition = addText(langTranslations.pdfSecurityScoreboard || 'Security Scoreboard', margin, yPosition, {
+                fontSize: 16,
+                color: primaryColor,
+                fontStyle: 'bold'
+            });
+            
+            // Breach difficulty
+            yPosition = addText(langTranslations.pdfBreachDifficulty || 'Breach Difficulty', margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor,
+                fontStyle: 'bold'
+            });
+            
+            let difficultyText = langTranslations.easy || 'Easy';
+            if (score >= 80) difficultyText = langTranslations.veryHard || 'Very Hard';
+            else if (score >= 60) difficultyText = langTranslations.hard || 'Hard';
+            else if (score >= 40) difficultyText = langTranslations.moderate || 'Moderate';
+            
+            yPosition = addText(difficultyText, margin, yPosition, {
+                fontSize: 10,
+                color: secondaryColor
+            });
+            
+            // Time to breach
+            yPosition = addText(langTranslations.pdfTimeToBreach || 'Time to Breach', margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor,
+                fontStyle: 'bold'
+            });
+            
+            let timeText = langTranslations.minutes || 'Minutes';
+            if (score >= 80) timeText = langTranslations.hoursDays || 'Hours/Days';
+            else if (score >= 60) timeText = langTranslations.hours || 'Hours';
+            
+            yPosition = addText(timeText, margin, yPosition, {
+                fontSize: 10,
+                color: secondaryColor
+            });
+            
+            // Critical vulnerabilities count
+            const criticalCount = this.scanResults.vulnerabilities.filter(v => v.severity === 'critical').length;
+            yPosition = addText(langTranslations.pdfCriticalVulns || 'Critical Vulnerabilities', margin, yPosition, {
+                fontSize: 12,
+                color: secondaryColor,
+                fontStyle: 'bold'
+            });
+            yPosition = addText(criticalCount.toString(), margin, yPosition, {
+                fontSize: 10,
+                color: criticalCount > 0 ? dangerColor : successColor
+            });
+            
+            // Footer
+            yPosition = addLine(yPosition + 20);
+            yPosition = addText(langTranslations.pdfReportFooter || 'This report was generated by the Security Assessment Tool. For authorized testing only.', margin, yPosition, {
+                fontSize: 8,
+                color: [150, 150, 150],
+                fontStyle: 'italic'
+            });
+            
+            // Generate filename with current language and date
+            const dateStr = new Date().toISOString().split('T')[0];
+            const filename = `security-assessment-${this.scanResults.target_url.replace(/[^a-zA-Z0-9]/g, '-')}-${dateStr}.pdf`;
+            
+            // Save the PDF
+            doc.save(filename);
+            
+            this.showNotification('pdfExportSuccess', 'success');
+            
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            this.showNotification('pdfExportFailed', 'error');
+        }
     }
 
     delay(ms) {
