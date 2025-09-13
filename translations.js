@@ -1,0 +1,373 @@
+// Multi-language support for Security Assessment Tool
+// Supporting all 11 official South African languages
+
+const translations = {
+    en: {
+        // Header
+        title: "Security Assessment Tool",
+        subtitle: "Comprehensive vulnerability testing for member-based websites",
+        
+        // Target Configuration
+        targetConfiguration: "Target Configuration",
+        targetUrl: "Target URL",
+        targetUrlPlaceholder: "https://example.com",
+        targetType: "Target Type",
+        selectTargetType: "Select target type",
+        memberPortal: "Member Portal",
+        ecommerce: "E-commerce Site",
+        socialPlatform: "Social Platform",
+        cms: "Content Management System",
+        api: "API Endpoint",
+        scanDepth: "Scan Depth",
+        basicScan: "Basic Scan",
+        standardScan: "Standard Scan",
+        comprehensiveScan: "Comprehensive Scan",
+        penetrationTest: "Penetration Test",
+        startAssessment: "Start Security Assessment",
+        
+        // Scan Progress
+        scanProgress: "Scan Progress",
+        initializingScan: "Initializing scan...",
+        portScanning: "Port Scanning",
+        sslAnalysis: "SSL/TLS Analysis",
+        headersAnalysis: "HTTP Headers Analysis",
+        directoryEnumeration: "Directory Enumeration",
+        sqlInjectionTesting: "SQL Injection Testing",
+        xssVulnerabilityCheck: "XSS Vulnerability Check",
+        authenticationBypass: "Authentication Bypass",
+        csrfProtection: "CSRF Protection",
+        pending: "Pending",
+        running: "Running...",
+        completed: "Completed",
+        vulnerable: "Vulnerable",
+        secure: "Secure",
+        
+        // Results
+        securityAssessmentResults: "Security Assessment Results",
+        securityScore: "Security Score",
+        assessmentComplete: "Assessment Complete",
+        assessmentDescription: "Your system has been thoroughly analyzed",
+        excellentSecurity: "Excellent Security Posture",
+        excellentDescription: "Your system demonstrates strong security practices with minimal vulnerabilities.",
+        goodSecurity: "Good Security Posture",
+        goodDescription: "Your system has good security practices but some areas need attention.",
+        moderateSecurity: "Moderate Security Risk",
+        moderateDescription: "Your system has several security vulnerabilities that should be addressed.",
+        highSecurity: "High Security Risk",
+        highDescription: "Your system has critical security vulnerabilities requiring immediate attention.",
+        
+        // Vulnerability Analysis
+        vulnerabilityAnalysis: "Vulnerability Analysis",
+        detailedFindings: "Detailed Findings",
+        securityRecommendations: "Security Recommendations",
+        noCriticalVulnerabilities: "No Critical Vulnerabilities Found",
+        clean: "Clean",
+        noVulnerabilitiesDescription: "The security scan did not identify any critical vulnerabilities in the target system.",
+        impact: "Impact",
+        systemAppearsSecure: "System appears to be well-secured against common attack vectors.",
+        
+        // Scoreboard
+        securityScoreboard: "Security Scoreboard",
+        overallSecurityRating: "Overall Security Rating",
+        breachDifficulty: "Breach Difficulty",
+        timeToBreach: "Time to Breach",
+        criticalVulnerabilities: "Critical Vulnerabilities",
+        excellent: "Excellent",
+        good: "Good",
+        fair: "Fair",
+        poor: "Poor",
+        veryHard: "Very Hard",
+        hard: "Hard",
+        moderate: "Moderate",
+        easy: "Easy",
+        hoursDays: "Hours/Days",
+        hours: "Hours",
+        minutes: "Minutes",
+        
+        // Recommendations
+        maintainCurrentPosture: "Maintain Current Security Posture",
+        maintainDescription: "Your system shows good security practices. Continue regular security assessments.",
+        addressCriticalVulns: "Address Critical Vulnerabilities Immediately",
+        addressCriticalDescription: "Critical vulnerabilities require immediate attention to prevent system compromise.",
+        implementInputValidation: "Implement Input Validation and Parameterized Queries",
+        implementInputDescription: "Add comprehensive input validation and use parameterized queries to prevent injection attacks.",
+        implementOutputEncoding: "Implement Output Encoding",
+        implementOutputDescription: "Encode all user input before displaying it to prevent XSS attacks.",
+        strengthenAuthentication: "Strengthen Authentication Mechanisms",
+        strengthenAuthDescription: "Implement proper authentication, session management, and access controls.",
+        improveSSL: "Improve SSL/TLS Configuration",
+        improveSSLDescription: "Use valid SSL certificates and strong encryption protocols.",
+        implementSecurityHeaders: "Implement Security Headers",
+        implementHeadersDescription: "Add security headers like CSP, HSTS, and X-Frame-Options.",
+        regularAudits: "Regular Security Audits",
+        regularAuditsDescription: "Schedule regular security assessments and penetration testing.",
+        securityTraining: "Security Training",
+        securityTrainingDescription: "Provide security training for development and operations teams.",
+        
+        // Priority levels
+        critical: "critical",
+        high: "high",
+        medium: "medium",
+        low: "low",
+        priority: "priority",
+        
+        // Footer
+        footer: "© 2024 Security Assessment Tool. For authorized testing only.",
+        
+        // Notifications
+        fillRequiredFields: "Please fill in all required fields",
+        scanFailed: "Scan failed. Please try again.",
+        scanTimeout: "Scan timeout",
+        failedToGetResults: "Failed to get scan results",
+        
+        // Language selector
+        selectLanguage: "Select Language",
+        language: "Language"
+    },
+    
+    zu: {
+        // Header
+        title: "Ithuluzi Lokuhlola Ukuvikeleka",
+        subtitle: "Ukuhlolwa okuphelele kwezinto ezingavikelekile ezindawo zewebhu ezinamalungu",
+        
+        // Target Configuration
+        targetConfiguration: "Ukulungiselelwa Kwesihloso",
+        targetUrl: "I-URL Yesihloso",
+        targetUrlPlaceholder: "https://example.com",
+        targetType: "Uhlobo Lwesihloso",
+        selectTargetType: "Khetha uhlobo lwesihloso",
+        memberPortal: "Isango Lamalungu",
+        ecommerce: "Isayithi Yezohwebo",
+        socialPlatform: "Isikhungo Sezenhlalo",
+        cms: "Isistimu Yokulawula Okuqukethwe",
+        api: "I-API Endpoint",
+        scanDepth: "Ukujula Kokuhlola",
+        basicScan: "Ukuhlola Okusisekelo",
+        standardScan: "Ukuhlola Okujwayelekile",
+        comprehensiveScan: "Ukuhlola Okuphelele",
+        penetrationTest: "Ukuhlolwa Kokungena",
+        startAssessment: "Qala Ukuhlolwa Kwezokuvikeleka",
+        
+        // Scan Progress
+        scanProgress: "Intuthuko Yokuhlola",
+        initializingScan: "Iqala ukuhlola...",
+        portScanning: "Ukuhlola Ama-Port",
+        sslAnalysis: "Ukuhlaziya i-SSL/TLS",
+        headersAnalysis: "Ukuhlaziya Ama-Header e-HTTP",
+        directoryEnumeration: "Ukubalwa Kwamafolda",
+        sqlInjectionTesting: "Ukuhlolwa Kwe-SQL Injection",
+        xssVulnerabilityCheck: "Ukuhlolwa Kwe-XSS Vulnerability",
+        authenticationBypass: "Ukudlula Ukufakazela",
+        csrfProtection: "Ukuvikeleka Kwe-CSRF",
+        pending: "Kulinde",
+        running: "Kuyasebenza...",
+        completed: "Kuqediwe",
+        vulnerable: "Kuyingozi",
+        secure: "Kuvikelekile",
+        
+        // Results
+        securityAssessmentResults: "Imiphumela Yokuhlolwa Kwezokuvikeleka",
+        securityScore: "Amaphuzu Ezokuvikeleka",
+        assessmentComplete: "Ukuhlolwa Kuqediwe",
+        assessmentDescription: "Isistimu yakho ihlolwe ngokuphelele",
+        excellentSecurity: "Isimo Sezokuvikeleka Esihle Kakhulu",
+        excellentDescription: "Isistimu yakho ibonisa imikhuba emihle yezokuvikeleka enezinto ezingavikelekile ezimbalwa.",
+        goodSecurity: "Isimo Sezokuvikeleka Esihle",
+        goodDescription: "Isistimu yakho inemikhuba emihle yezokuvikeleka kodwa ezinye izindawo zidinga ukunakwa.",
+        moderateSecurity: "Ingozi Yezokuvikeleka Ephakathi",
+        moderateDescription: "Isistimu yakho inezinto ezingavikelekile ezokuvikeleka eziningi okufanele zilungiswe.",
+        highSecurity: "Ingozi Enkulu Yezokuvikeleka",
+        highDescription: "Isistimu yakho inezinto ezingavikelekile ezokuvikeleka ezibalulekile ezidinga ukunakwa ngokushesha.",
+        
+        // Vulnerability Analysis
+        vulnerabilityAnalysis: "Ukuhlaziya Izinto Ezingavikelekile",
+        detailedFindings: "Okutholakele Okuningiliziwe",
+        securityRecommendations: "Iziphakamiso Zezokuvikeleka",
+        noCriticalVulnerabilities: "Azikho Izinto Ezingavikelekile Ezibalulekile Ezitholakele",
+        clean: "Ihlanzekile",
+        noVulnerabilitiesDescription: "Ukuhlolwa kwezokuvikeleka akuzange kuthole noma yiziphi izinto ezingavikelekile ezibalulekile esistimini esihlosiwe.",
+        impact: "Umthelela",
+        systemAppearsSecure: "Isistimu ibonakala ivikelekile ngokumelene nezindlela zokuhlasela ezijwayelekile.",
+        
+        // Scoreboard
+        securityScoreboard: "Ibhodi Yamaphuzu Ezokuvikeleka",
+        overallSecurityRating: "Isilinganiso Sezokuvikeleka Esiphelele",
+        breachDifficulty: "Ubunzima Bokungena",
+        timeToBreach: "Isikhathi Sokungena",
+        criticalVulnerabilities: "Izinto Ezingavikelekile Ezibalulekile",
+        excellent: "Kuhle Kakhulu",
+        good: "Kuhle",
+        fair: "Kulungile",
+        poor: "Akukuhle",
+        veryHard: "Kunzima Kakhulu",
+        hard: "Kunzima",
+        moderate: "Kungaphakathi",
+        easy: "Kulula",
+        hoursDays: "Amahora/Usuku",
+        hours: "Amahora",
+        minutes: "Amaminithi",
+        
+        // Recommendations
+        maintainCurrentPosture: "Gcina Isimo Sezokuvikeleka Samanje",
+        maintainDescription: "Isistimu yakho ibonisa imikhuba emihle yezokuvikeleka. Qhubeka nokuhlolwa kwezokuvikeleka njalo.",
+        addressCriticalVulns: "Bhekana Nezinto Ezingavikelekile Ezibalulekile Ngokushesha",
+        addressCriticalDescription: "Izinto ezingavikelekile ezibalulekile zidinga ukunakwa ngokushesha ukuze kuvinjelwe ukungena kwesistimu.",
+        implementInputValidation: "Faka Ukuhlolwa Kokufakwayo Nama-Parameterized Queries",
+        implementInputDescription: "Engeza ukuhlolwa okuphelele kokufakwayo futhi usebenzise ama-parameterized queries ukuze uvimbele ukuhlasela kwe-injection.",
+        implementOutputEncoding: "Faka I-Output Encoding",
+        implementOutputDescription: "Encode konke okufakwayo komsebenzisi ngaphambi kokukubonisa ukuze uvimbele ukuhlasela kwe-XSS.",
+        strengthenAuthentication: "Qinisa Izindlela Zokufakazela",
+        strengthenAuthDescription: "Faka ukufakazela okufanele, ukuphathwa kweseshini, nokulawula ukufinyelela.",
+        improveSSL: "Thuthukisa Ukulungiselelwa Kwe-SSL/TLS",
+        improveSSLDescription: "Sebenzisa izitifiketi ze-SSL eziqinisekile nezindlela zokubethela eziqinile.",
+        implementSecurityHeaders: "Faka Ama-Security Headers",
+        implementHeadersDescription: "Engeza ama-security headers afana ne-CSP, HSTS, ne-X-Frame-Options.",
+        regularAudits: "Ukuhlolwa Kwezokuvikeleka Njalo",
+        regularAuditsDescription: "Hlela ukuhlolwa kwezokuvikeleka njalo nokuhlolwa kokungena.",
+        securityTraining: "Ukuqeqeshwa Kwezokuvikeleka",
+        securityTrainingDescription: "Hlinzeka ukuqeqeshwa kwezokuvikeleka kumaqembu okuthuthukisa nokusebenza.",
+        
+        // Priority levels
+        critical: "kubalulekile",
+        high: "ephezulu",
+        medium: "ephakathi",
+        low: "ephansi",
+        priority: "okubalulekile",
+        
+        // Footer
+        footer: "© 2024 Ithuluzi Lokuhlola Ukuvikeleka. Lokho okugunyaziwe kuphela.",
+        
+        // Notifications
+        fillRequiredFields: "Sicela ugcwalise zonke izinkambu ezidingekayo",
+        scanFailed: "Ukuhlolwa kuhlulekile. Sicela uzame futhi.",
+        scanTimeout: "Isikhathi sokuhlolwa siphelelwe",
+        failedToGetResults: "Kuhlulekile ukuthola imiphumela yokuhlolwa",
+        
+        // Language selector
+        selectLanguage: "Khetha Ulimi",
+        language: "Ulimi"
+    },
+    
+    xh: {
+        // Header
+        title: "Isixhobo Sokuvavanya Ukhuseleko",
+        subtitle: "Uvavanyo olupheleleyo lwezinto ezingakhuselekanga kwiindawo zewebhu ezinamalungu",
+        
+        // Target Configuration
+        targetConfiguration: "Ukulungiselelwa Kwesihloso",
+        targetUrl: "I-URL Yesihloso",
+        targetUrlPlaceholder: "https://example.com",
+        targetType: "Uhlobo Lwesihloso",
+        selectTargetType: "Khetha uhlobo lwesihloso",
+        memberPortal: "Isango Lamalungu",
+        ecommerce: "Isayithi Yorhwebo",
+        socialPlatform: "Isikhungo Sezenhlalo",
+        cms: "Isistimu Yokulawula Okuqukethwe",
+        api: "I-API Endpoint",
+        scanDepth: "Ukujula Kokuvavanya",
+        basicScan: "Uvavanyo Olusiseko",
+        standardScan: "Uvavanyo Olujwayelekileyo",
+        comprehensiveScan: "Uvavanyo Olupheleleyo",
+        penetrationTest: "Uvavanyo Lokungena",
+        startAssessment: "Qala Uvavanyo Lwokhuseleko",
+        
+        // Scan Progress
+        scanProgress: "Intuthuko Yovavanyo",
+        initializingScan: "Iqala uvavanyo...",
+        portScanning: "Uvavanyo Lwama-Port",
+        sslAnalysis: "Uhlalutyo lwe-SSL/TLS",
+        headersAnalysis: "Uhlalutyo Lwama-Header e-HTTP",
+        directoryEnumeration: "Ukubalwa Kwamafolda",
+        sqlInjectionTesting: "Uvavanyo Lwe-SQL Injection",
+        xssVulnerabilityCheck: "Uvavanyo Lwe-XSS Vulnerability",
+        authenticationBypass: "Ukudlula Ukufakazela",
+        csrfProtection: "Ukhuseleko Lwe-CSRF",
+        pending: "Kulinde",
+        running: "Kuyasebenza...",
+        completed: "Kuqediwe",
+        vulnerable: "Kuyingozi",
+        secure: "Kukhuselekile",
+        
+        // Results
+        securityAssessmentResults: "Iziphumo Zovavanyo Lwokhuseleko",
+        securityScore: "Amanqaku Okhuseleko",
+        assessmentComplete: "Uvavanyo Luqediwe",
+        assessmentDescription: "Isistimu yakho ivavanyiwe ngokupheleleyo",
+        excellentSecurity: "Isimo Sokhuseleko Esihle Kakhulu",
+        excellentDescription: "Isistimu yakho ibonisa imikhuba emihle yokhuseleko enezinto ezingakhuselekanga ezimbalwa.",
+        goodSecurity: "Isimo Sokhuseleko Esihle",
+        goodDescription: "Isistimu yakho inemikhuba emihle yokhuseleko kodwa ezinye iindawo zidinga ukunakwa.",
+        moderateSecurity: "Ingozi Yokhuseleko Ephakathi",
+        moderateDescription: "Isistimu yakho inezinto ezingakhuselekanga zokhuseleko ezininzi okufanele zilungiswe.",
+        highSecurity: "Ingozi Enkulu Yokhuseleko",
+        highDescription: "Isistimu yakho inezinto ezingakhuselekanga zokhuseleko ezibalulekileyo ezidinga ukunakwa ngokukhawuleza.",
+        
+        // Vulnerability Analysis
+        vulnerabilityAnalysis: "Uhlalutyo Lwezinto Ezingakhuselekanga",
+        detailedFindings: "Okufunyenweyo Okuninzi",
+        securityRecommendations: "Iziphakamiso Zokhuseleko",
+        noCriticalVulnerabilities: "Azikho Izinto Ezingakhuselekanga Ezibalulekileyo Ezifunyenweyo",
+        clean: "Ihlanzekile",
+        noVulnerabilitiesDescription: "Uvavanyo lokhuseleko aluzange lufumane naziphi na izinto ezingakhuselekanga ezibalulekileyo esistimini esihlosiweyo.",
+        impact: "Umthelela",
+        systemAppearsSecure: "Isistimu ibonakala ikhuselekile ngokuchasene nezindlela zokuhlasela ezijwayelekileyo.",
+        
+        // Scoreboard
+        securityScoreboard: "Ibhodi Yamagqabaza Okhuseleko",
+        overallSecurityRating: "Isilinganiso Sokhuseleko Esipheleleyo",
+        breachDifficulty: "Ubunzima Bokungena",
+        timeToBreach: "Ixesha Lokungena",
+        criticalVulnerabilities: "Izinto Ezingakhuselekanga Ezibalulekileyo",
+        excellent: "Kuhle Kakhulu",
+        good: "Kuhle",
+        fair: "Kulungile",
+        poor: "Akukuhle",
+        veryHard: "Kunzima Kakhulu",
+        hard: "Kunzima",
+        moderate: "Kungaphakathi",
+        easy: "Kulula",
+        hoursDays: "Iiyure/Iintsuku",
+        hours: "Iiyure",
+        minutes: "Iimizuzu",
+        
+        // Recommendations
+        maintainCurrentPosture: "Gcina Isimo Sokhuseleko Samanje",
+        maintainDescription: "Isistimu yakho ibonisa imikhuba emihle yokhuseleko. Qhubeka novavanyo lokhuseleko rhoqo.",
+        addressCriticalVulns: "Jongana Nezinto Ezingakhuselekanga Ezibalulekileyo Ngokukhawuleza",
+        addressCriticalDescription: "Izinto ezingakhuselekanga ezibalulekileyo zidinga ukunakwa ngokukhawuleza ukuze kuvinjelwe ukungena kwesistimu.",
+        implementInputValidation: "Faka Uvavanyo Lokufakwayo Nama-Parameterized Queries",
+        implementInputDescription: "Yongeza uvavanyo olupheleleyo lokufakwayo kwaye usebenzise ama-parameterized queries ukuze uvimbele ukuhlasela kwe-injection.",
+        implementOutputEncoding: "Faka I-Output Encoding",
+        implementOutputDescription: "Encode konke okufakwayo komsebenzisi ngaphambi kokukubonisa ukuze uvimbele ukuhlasela kwe-XSS.",
+        strengthenAuthentication: "Qinisa Izindlela Zokufakazela",
+        strengthenAuthDescription: "Faka ukufakazela okufanelekileyo, ukuphathwa kweseshini, nokulawula ukufikelela.",
+        improveSSL: "Phucula Ukulungiselelwa Kwe-SSL/TLS",
+        improveSSLDescription: "Sebenzisa izitifiketi ze-SSL eziqinisekileyo nezindlela zokubethela eziqinileyo.",
+        implementSecurityHeaders: "Faka Ama-Security Headers",
+        implementHeadersDescription: "Yongeza ama-security headers afana ne-CSP, HSTS, ne-X-Frame-Options.",
+        regularAudits: "Uvavanyo Lokhuseleko Rhoqo",
+        regularAuditsDescription: "Hlela uvavanyo lokhuseleko rhoqo novavanyo lokungena.",
+        securityTraining: "Ukuqeqeshwa Kokhuseleko",
+        securityTrainingDescription: "Hlinzeka ukuqeqeshwa kokhuseleko kumaqela okuthuthukisa nokusebenza.",
+        
+        // Priority levels
+        critical: "kubalulekile",
+        high: "ephezulu",
+        medium: "ephakathi",
+        low: "ephantsi",
+        priority: "okubalulekileyo",
+        
+        // Footer
+        footer: "© 2024 Isixhobo Sokuvavanya Ukhuseleko. Okugunyaziweyo kuphela.",
+        
+        // Notifications
+        fillRequiredFields: "Sicela ugcwalise zonke iinkambu ezifunwayo",
+        scanFailed: "Uvavanyo luhlulekile. Sicela uzame kwakhona.",
+        scanTimeout: "Ixesha lovavanyo liphelelwe",
+        failedToGetResults: "Kuhlulekile ukufumana iziphumo zovavanyo",
+        
+        // Language selector
+        selectLanguage: "Khetha Ulimi",
+        language: "Ulimi"
+    }
+};
