@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Assessment Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="translations.js"></script>
+    <script src="translations_additional.js"></script>
+    <script src="translations_complete.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1 data-translate="title">Security Assessment Tool</h1>
+                </div>
+                <div class="language-selector">
+                    <label for="languageSelect" data-translate="selectLanguage">Select Language:</label>
+                    <select id="languageSelect" class="language-dropdown">
+                        <option value="en">English</option>
+                        <option value="zu">Zulu (isiZulu)</option>
+                        <option value="xh">Xhosa (isiXhosa)</option>
+                        <option value="af">Afrikaans</option>
+                        <option value="nso">Sepedi (Sesotho sa Leboa)</option>
+                        <option value="st">Sesotho</option>
+                        <option value="tn">Setswana</option>
+                        <option value="ss">siSwati</option>
+                        <option value="ve">Tshivenda</option>
+                        <option value="ts">Xitsonga</option>
+                        <option value="nr">isiNdebele</option>
+                    </select>
+                </div>
+            </div>
+            <p class="subtitle" data-translate="subtitle">Comprehensive vulnerability testing for member-based websites</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Target Input Section -->
+            <section class="target-section">
+                <div class="card">
+                    <h2><i class="fas fa-bullseye"></i> <span data-translate="targetConfiguration">Target Configuration</span></h2>
+                    <form id="targetForm" class="target-form">
+                        <div class="form-group">
+                            <label for="targetUrl" data-translate="targetUrl">Target URL</label>
+                            <input type="url" id="targetUrl" placeholder="https://example.com" data-translate-placeholder="targetUrlPlaceholder" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="targetType" data-translate="targetType">Target Type</label>
+                            <select id="targetType" required>
+                                <option value="" data-translate="selectTargetType">Select target type</option>
+                                <option value="member-portal" data-translate="memberPortal">Member Portal</option>
+                                <option value="ecommerce" data-translate="ecommerce">E-commerce Site</option>
+                                <option value="social-platform" data-translate="socialPlatform">Social Platform</option>
+                                <option value="cms" data-translate="cms">Content Management System</option>
+                                <option value="api" data-translate="api">API Endpoint</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="scanDepth" data-translate="scanDepth">Scan Depth</label>
+                            <select id="scanDepth">
+                                <option value="basic" data-translate="basicScan">Basic Scan</option>
+                                <option value="standard" selected data-translate="standardScan">Standard Scan</option>
+                                <option value="comprehensive" data-translate="comprehensiveScan">Comprehensive Scan</option>
+                                <option value="penetration" data-translate="penetrationTest">Penetration Test</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-play"></i> <span data-translate="startAssessment">Start Security Assessment</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Scan Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="card">
+                    <h2><i class="fas fa-cogs"></i> <span data-translate="scanProgress">Scan Progress</span></h2>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText" data-translate="initializingScan">Initializing scan...</div>
+                    </div>
+                    <div class="scan-details" id="scanDetails">
+                        <div class="scan-item">
+                            <span class="scan-name" data-translate="portScanning">Port Scanning</span>
+                            <span class="scan-status" id="portStatus" data-translate="pending">Pending</span>
+                        </div>
+                        <div class="scan-item">
+                            <span class="scan-name" data-translate="sqlInjectionTesting">SQL Injection Testing</span>
+                            <span class="scan-status" id="sqlStatus" data-translate="pending">Pending</span>
+                        </div>
+                        <div class="scan-item">
+                            <span class="scan-name" data-translate="xssVulnerabilityCheck">XSS Vulnerability Check</span>
+                            <span class="scan-status" id="xssStatus" data-translate="pending">Pending</span>
+                        </div>
+                        <div class="scan-item">
+                            <span class="scan-name" data-translate="authenticationBypass">Authentication Bypass</span>
+                            <span class="scan-status" id="authStatus" data-translate="pending">Pending</span>
+                        </div>
+                        <div class="scan-item">
+                            <span class="scan-name" data-translate="directoryEnumeration">Directory Enumeration</span>
+                            <span class="scan-status" id="dirStatus" data-translate="pending">Pending</span>
+                        </div>
+                        <div class="scan-item">
+                            <span class="scan-name" data-translate="csrfProtection">CSRF Protection</span>
+                            <span class="scan-status" id="csrfStatus" data-translate="pending">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="card">
+                    <h2><i class="fas fa-chart-line"></i> <span data-translate="securityAssessmentResults">Security Assessment Results</span></h2>
+                    
+                    <!-- Overall Score -->
+                    <div class="score-overview">
+                        <div class="score-circle">
+                            <div class="score-number" id="overallScore">0</div>
+                            <div class="score-label" data-translate="securityScore">Security Score</div>
+                        </div>
+                        <div class="score-details">
+                            <h3 id="scoreTitle" data-translate="assessmentComplete">Assessment Complete</h3>
+                            <p id="scoreDescription" data-translate="assessmentDescription">Your system has been thoroughly analyzed</p>
+                        </div>
+                    </div>
+
+                    <!-- Vulnerability Categories -->
+                    <div class="vulnerability-categories">
+                        <h3 data-translate="vulnerabilityAnalysis">Vulnerability Analysis</h3>
+                        <div class="category-grid" id="categoryGrid">
+                            <!-- Categories will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Detailed Findings -->
+                    <div class="findings-section">
+                        <h3 data-translate="detailedFindings">Detailed Findings</h3>
+                        <div class="findings-container" id="findingsContainer">
+                            <!-- Findings will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="recommendations-section">
+                        <h3 data-translate="securityRecommendations">Security Recommendations</h3>
+                        <div class="recommendations-container" id="recommendationsContainer">
+                            <!-- Recommendations will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Export PDF Button -->
+                    <div class="export-section">
+                        <button id="exportPdfBtn" class="btn btn-secondary" style="display: none;">
+                            <i class="fas fa-file-pdf"></i> <span data-translate="exportPdfReport">Export PDF Report</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scoreboard Section -->
+            <section class="scoreboard-section" id="scoreboardSection" style="display: none;">
+                <div class="card">
+                    <h2><i class="fas fa-trophy"></i> <span data-translate="securityScoreboard">Security Scoreboard</span></h2>
+                    <div class="scoreboard-container">
+                        <div class="scoreboard-item">
+                            <div class="scoreboard-label" data-translate="overallSecurityRating">Overall Security Rating</div>
+                            <div class="scoreboard-value" id="securityRating">-</div>
+                        </div>
+                        <div class="scoreboard-item">
+                            <div class="scoreboard-label" data-translate="breachDifficulty">Breach Difficulty</div>
+                            <div class="scoreboard-value" id="breachDifficulty">-</div>
+                        </div>
+                        <div class="scoreboard-item">
+                            <div class="scoreboard-label" data-translate="timeToBreach">Time to Breach</div>
+                            <div class="scoreboard-value" id="breachTime">-</div>
+                        </div>
+                        <div class="scoreboard-item">
+                            <div class="scoreboard-label" data-translate="criticalVulnerabilities">Critical Vulnerabilities</div>
+                            <div class="scoreboard-value" id="criticalVulns">-</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p data-translate="footer">&copy; 2024 Security Assessment Tool. For authorized testing only.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
